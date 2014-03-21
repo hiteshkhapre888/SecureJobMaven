@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Feb 7, 2014 3:34:17 PM by Hibernate Tools 3.6.0 -->
+<hibernate-mapping>
+  <class catalog="securejobsdb" name="com.securejobs.domain.Experiences" table="experiences">
+    <id name="idExperiences" type="java.lang.Integer">
+      <column name="idExperiences"/>
+      <generator class="identity"/>
+    </id>
+    <many-to-one class="com.securejobs.domain.JobTitles" fetch="select" name="jobTitles">
+      <column name="JobTitles_idJobTitles" not-null="true"/>
+    </many-to-one>
+    <many-to-one class="com.securejobs.domain.Persons" fetch="select" name="persons">
+      <column name="Persons_idUser" not-null="true"/>
+    </many-to-one>
+    <many-to-one class="com.securejobs.domain.EmploymentLevels" fetch="select" name="employmentLevels">
+      <column name="EmploymentLevels_idLevelsOfEmployment"/>
+    </many-to-one>
+    <property name="dateStarted" type="date">
+      <column length="10" name="dateStarted" not-null="true">
+        <comment>this must be unique for each person as it is part the composite PK</comment>
+      </column>
+    </property>
+    <property name="dateFinished" type="date">
+      <column length="10" name="dateFinished"/>
+    </property>
+    <property name="otherJobTitle" type="string">
+      <column length="45" name="otherJobTitle">
+        <comment>in case a suitable job-title is not found in the drop-down from the job_titles table</comment>
+      </column>
+    </property>
+    <property name="keyDuties" type="string">
+      <column name="keyDuties">
+        <comment>this could be searchable by keywork search!?</comment>
+      </column>
+    </property>
+    <property name="employerName" type="string">
+      <column length="45" name="employerName"/>
+    </property>
+    <property name="verified" type="java.lang.Boolean">
+      <column name="verified"/>
+    </property>
+    <property name="howVerified" type="string">
+      <column length="45" name="howVerified"/>
+    </property>
+  </class>
+</hibernate-mapping>

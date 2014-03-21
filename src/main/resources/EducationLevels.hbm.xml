@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Feb 7, 2014 3:34:17 PM by Hibernate Tools 3.6.0 -->
+<hibernate-mapping>
+  <class catalog="securejobsdb" name="com.securejobs.domain.EducationLevels" table="education_levels">
+    <id name="idEducationLevel" type="java.lang.Short">
+      <column name="idEducationLevel"/>
+      <generator class="identity"/>
+    </id>
+    <property name="educationLevel" type="string">
+      <column length="100" name="educationLevel" not-null="true">
+        <comment>O-Level A-Level HND Degree MSc PhD</comment>
+      </column>
+    </property>
+    <set fetch="select" inverse="true" lazy="true" name="personses" table="persons">
+      <key>
+        <column name="EducationLevels_idEducationLevel">
+          <comment>Highest education level achieved - from a drop-down</comment>
+        </column>
+      </key>
+      <one-to-many class="com.securejobs.domain.Persons"/>
+    </set>
+    <set fetch="select" inverse="true" lazy="true" name="educationalQualificationses" table="educational_qualifications">
+      <key>
+        <column name="EducationLevels_idEducationLevel"/>
+      </key>
+      <one-to-many class="com.securejobs.domain.EducationalQualifications"/>
+    </set>
+  </class>
+</hibernate-mapping>

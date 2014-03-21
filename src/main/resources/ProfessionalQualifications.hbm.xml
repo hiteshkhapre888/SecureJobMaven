@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Feb 7, 2014 3:34:17 PM by Hibernate Tools 3.6.0 -->
+<hibernate-mapping>
+  <class catalog="securejobsdb" name="com.securejobs.domain.ProfessionalQualifications" table="professional_qualifications">
+    <id name="idProfessionalQualifications" type="java.lang.Integer">
+      <column name="idProfessionalQualifications"/>
+      <generator class="identity"/>
+    </id>
+    <many-to-one class="com.securejobs.domain.Persons" fetch="select" name="persons">
+      <column name="Persons_idUser" not-null="true"/>
+    </many-to-one>
+    <many-to-one class="com.securejobs.domain.Sectors" fetch="select" name="sectors">
+      <column name="Sectors_idSectors">
+        <comment>job sector if relevant</comment>
+      </column>
+    </many-to-one>
+    <property name="qualificationName" type="string">
+      <column length="100" name="qualificationName" not-null="true"/>
+    </property>
+    <property name="otherSector" type="string">
+      <column length="45" name="otherSector">
+        <comment>alternative sector if one cannot be found in the drop-down based on the sectors table</comment>
+      </column>
+    </property>
+    <property name="awardingBody" type="string">
+      <column length="45" name="awardingBody">
+        <comment>if appropriate - e.g. institute of chartered surveyors</comment>
+      </column>
+    </property>
+    <property name="yearObtained" type="date">
+      <column length="10" name="yearObtained"/>
+    </property>
+    <property name="result" type="string">
+      <column length="20" name="result">
+        <comment>if appropriate - some prof qualification may have classifications - e.g. the legal practice certificate: distinctinction, commendation, pass</comment>
+      </column>
+    </property>
+    <property name="verified" type="java.lang.Boolean">
+      <column name="verified"/>
+    </property>
+    <property name="howVerified" type="string">
+      <column length="45" name="howVerified">
+        <comment>e.g. examining certificates or lists of members of professional bodies</comment>
+      </column>
+    </property>
+  </class>
+</hibernate-mapping>

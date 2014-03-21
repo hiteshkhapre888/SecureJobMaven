@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Feb 7, 2014 3:34:17 PM by Hibernate Tools 3.6.0 -->
+<hibernate-mapping>
+  <class catalog="securejobsdb" name="com.securejobs.domain.EmploymentLevels" table="employment_levels">
+    <id name="idLevelsOfEmployment" type="java.lang.Short">
+      <column name="idLevelsOfEmployment"/>
+      <generator class="identity"/>
+    </id>
+    <property name="employmentLevel" type="string">
+      <column length="45" name="employmentLevel" not-null="true">
+        <comment>To ascertain the nature of work experience, e.g. entry level; experienced/non-manager; supervisor of staff; manager; executive/senior executive</comment>
+      </column>
+    </property>
+    <set fetch="select" inverse="true" lazy="true" name="experienceses" table="experiences">
+      <key>
+        <column name="EmploymentLevels_idLevelsOfEmployment"/>
+      </key>
+      <one-to-many class="com.securejobs.domain.Experiences"/>
+    </set>
+  </class>
+</hibernate-mapping>

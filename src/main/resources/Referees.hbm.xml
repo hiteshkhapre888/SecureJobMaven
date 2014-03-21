@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Feb 7, 2014 3:34:17 PM by Hibernate Tools 3.6.0 -->
+<hibernate-mapping>
+  <class catalog="securejobsdb" name="com.securejobs.domain.Referees" table="referees">
+    <id name="idReferees" type="java.lang.Integer">
+      <column name="idReferees"/>
+      <generator class="identity"/>
+    </id>
+    <many-to-one class="com.securejobs.domain.Persons" fetch="select" name="persons">
+      <column name="Persons_idUser" not-null="true"/>
+    </many-to-one>
+    <property name="title" type="string">
+      <column length="10" name="title"/>
+    </property>
+    <property name="forename" type="string">
+      <column length="45" name="forename" not-null="true"/>
+    </property>
+    <property name="surname" type="string">
+      <column length="45" name="surname" not-null="true"/>
+    </property>
+    <property name="email" type="string">
+      <column length="50" name="email"/>
+    </property>
+    <property name="contactPhone" type="string">
+      <column length="16" name="contactPhone"/>
+    </property>
+    <property name="relationship" type="string">
+      <column length="9" name="relationship"/>
+    </property>
+    <property name="permissionToContact" type="java.lang.Boolean">
+      <column name="permissionToContact">
+        <comment>the person should get an agreement and tick this box to overwrite the default 0</comment>
+      </column>
+    </property>
+    <property name="permissionToStoreDetails" type="java.lang.Boolean">
+      <column name="permissionToStoreDetails">
+        <comment>person should try to get an agreement and check - otherwise the record will be deleted</comment>
+      </column>
+    </property>
+    <property name="verified" type="java.lang.Boolean">
+      <column name="verified"/>
+    </property>
+    <property name="howVerified" type="string">
+      <column length="45" name="howVerified">
+        <comment>referee contacted by email/phone/letter</comment>
+      </column>
+    </property>
+    <property name="referenceDoc" type="binary">
+      <column name="referenceDoc">
+        <comment>uploaded scanned reference?</comment>
+      </column>
+    </property>
+  </class>
+</hibernate-mapping>

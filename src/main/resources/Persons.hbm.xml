@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Feb 7, 2014 3:34:17 PM by Hibernate Tools 3.6.0 -->
+<hibernate-mapping>
+  <class catalog="securejobsdb" name="com.securejobs.domain.Persons" table="persons">
+    <id name="idUser" type="int">
+      <column name="idUser"/>
+      <generator class="assigned"/>
+    </id>
+    <many-to-one class="com.securejobs.domain.EducationLevels" fetch="select" name="educationLevels">
+      <column name="EducationLevels_idEducationLevel">
+        <comment>Highest education level achieved - from a drop-down</comment>
+      </column>
+    </many-to-one>
+    <property name="username" type="string">
+      <column length="50" name="username" not-null="true">
+        <comment>must be a valid email</comment>
+      </column>
+    </property>
+    <property name="password" type="string">
+      <column length="16" name="password" not-null="true">
+        <comment>encrypt</comment>
+      </column>
+    </property>
+    <property name="title" type="string">
+      <column length="10" name="title"/>
+    </property>
+    <property name="forename1" type="string">
+      <column length="45" name="forename1" not-null="true"/>
+    </property>
+    <property name="forename2" type="string">
+      <column length="45" name="forename2"/>
+    </property>
+    <property name="surname" type="string">
+      <column length="45" name="surname" not-null="true"/>
+    </property>
+    <property name="addressLine1" type="string">
+      <column length="45" name="addressLine1"/>
+    </property>
+    <property name="addressLine2" type="string">
+      <column length="45" name="addressLine2"/>
+    </property>
+    <property name="town" type="string">
+      <column length="45" name="town"/>
+    </property>
+    <property name="postcode" type="string">
+      <column length="10" name="postcode"/>
+    </property>
+    <property name="secondEmail" type="string">
+      <column length="50" name="secondEmail">
+        <comment>alternative email to be used if any problem with the username (primary email)</comment>
+      </column>
+    </property>
+    <property name="personalUrl" type="string">
+      <column length="64" name="personalUrl">
+        <comment>increasingly common</comment>
+      </column>
+    </property>
+    <property name="photo" type="binary">
+      <column name="photo">
+        <comment>to be uploaded by the user</comment>
+      </column>
+    </property>
+    <property name="female" type="java.lang.Boolean">
+      <column name="female">
+        <comment>need to check whether there could be legal issues collecting/using this info</comment>
+      </column>
+    </property>
+    <property name="postcodeStart" type="string">
+      <column length="10" name="postcodeStart">
+        <comment>first part of the the persons address postcode for distance calculation</comment>
+      </column>
+    </property>
+    <property name="authorityToWorkStatement" type="string">
+      <column name="authorityToWorkStatement">
+        <comment>List restrictions on work, e.g. max 20 hours per week (some non-EU residents) E.g. if not null it should be displayed</comment>
+      </column>
+    </property>
+    <property name="contactPreference" type="string">
+      <column length="8" name="contactPreference">
+        <comment>mobile landline email1 (username) email2 (secondEmail)</comment>
+      </column>
+    </property>
+    <property name="noOfGcses" type="java.lang.Short">
+      <column name="noOfGcses"/>
+    </property>
+    <property name="gcseEnglishGrade" type="string">
+      <column length="2" name="gcseEnglishGrade"/>
+    </property>
+    <property name="gcseMathsGrade" type="string">
+      <column length="2" name="gcseMathsGrade"/>
+    </property>
+    <property name="fiveOrMoreGcses" type="java.lang.Boolean">
+      <column name="fiveOrMoreGcses"/>
+    </property>
+    <property name="noOfAlevels" type="java.lang.Short">
+      <column name="noOfAlevels">
+        <comment>entered by the user - could be checked against the number in the Alevels table. AS level is 0.5. What about International Baccalaureate, French
+                Baccalaureate,European Baccalaureate,Scottish Highers etc...</comment>
+      </column>
+    </property>
+    <property name="ucasPoints" type="java.lang.Short">
+      <column name="ucasPoints">
+        <comment>needed?</comment>
+      </column>
+    </property>
+    <property name="studentStatus" type="string">
+      <column length="13" name="studentStatus">
+        <comment>if a student then the details of the course should be stored in the Educational_qualifications table</comment>
+      </column>
+    </property>
+    <property name="mobile" type="string">
+      <column length="16" name="mobile"/>
+    </property>
+    <property name="landline" type="string">
+      <column length="16" name="landline"/>
+    </property>
+    <property name="dob" type="date">
+      <column length="10" name="dob">
+        <comment>date of birth - may be required by some employes but cannot be searched on</comment>
+      </column>
+    </property>
+    <property name="penaltyPoints" type="java.lang.Short">
+      <column name="penaltyPoints">
+        <comment>on the UK driving license - see http://www.direct.gov.uk/en/Motoring/DriverLicensing/EndorsementsAndDisqualifications/DG_4022550</comment>
+      </column>
+    </property>
+    <set fetch="select" inverse="true" lazy="true" name="educationalQualificationses" table="educational_qualifications">
+      <key>
+        <column name="Persons_idUser" not-null="true"/>
+      </key>
+      <one-to-many class="com.securejobs.domain.EducationalQualifications"/>
+    </set>
+    <set fetch="select" inverse="true" lazy="true" name="experienceses" table="experiences">
+      <key>
+        <column name="Persons_idUser" not-null="true"/>
+      </key>
+      <one-to-many class="com.securejobs.domain.Experiences"/>
+    </set>
+    <set fetch="select" inverse="false" lazy="true" name="jobTitleses" table="job_preferences">
+      <key>
+        <column name="person_idUser" not-null="true"/>
+      </key>
+      <many-to-many entity-name="com.securejobs.domain.JobTitles">
+        <column name="JobTitles_idJobTitles" not-null="true"/>
+      </many-to-many>
+    </set>
+    <set fetch="select" inverse="true" lazy="true" name="refereeses" table="referees">
+      <key>
+        <column name="Persons_idUser" not-null="true"/>
+      </key>
+      <one-to-many class="com.securejobs.domain.Referees"/>
+    </set>
+    <set fetch="select" inverse="true" lazy="true" name="skillses" table="skills">
+      <key>
+        <column name="Persons_idUser" not-null="true"/>
+      </key>
+      <one-to-many class="com.securejobs.domain.Skills"/>
+    </set>
+    <set fetch="select" inverse="true" lazy="true" name="professionalQualificationses" table="professional_qualifications">
+      <key>
+        <column name="Persons_idUser" not-null="true"/>
+      </key>
+      <one-to-many class="com.securejobs.domain.ProfessionalQualifications"/>
+    </set>
+  </class>
+</hibernate-mapping>

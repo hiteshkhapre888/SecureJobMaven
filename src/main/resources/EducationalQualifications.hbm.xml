@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Feb 7, 2014 3:34:17 PM by Hibernate Tools 3.6.0 -->
+<hibernate-mapping>
+  <class catalog="securejobsdb" name="com.securejobs.domain.EducationalQualifications" table="educational_qualifications">
+    <id name="idEducationalQualifications" type="java.lang.Integer">
+      <column name="idEducationalQualifications"/>
+      <generator class="identity"/>
+    </id>
+    <many-to-one class="com.securejobs.domain.Persons" fetch="select" name="persons">
+      <column name="Persons_idUser" not-null="true"/>
+    </many-to-one>
+    <many-to-one class="com.securejobs.domain.EducationLevels" fetch="select" name="educationLevels">
+      <column name="EducationLevels_idEducationLevel"/>
+    </many-to-one>
+    <property name="qualificationType" type="string">
+      <column length="16" name="qualificationType" not-null="true">
+        <comment>e.g. BSc, A-level, BSc Hon, BTEC HND - using auto-complete from edu_qualifications_lookup</comment>
+      </column>
+    </property>
+    <property name="courseName" type="string">
+      <column length="100" name="courseName" not-null="true">
+        <comment>e.g. Biology with Computing, Business Studies - using auto-complete</comment>
+      </column>
+    </property>
+    <property name="vocational" type="java.lang.Boolean">
+      <column name="vocational">
+        <comment>1 if vocational, 0 if academic null if not sure? Not sure this is needed.</comment>
+      </column>
+    </property>
+    <property name="mainSubject" type="string">
+      <column length="45" name="mainSubject">
+        <comment>e.g. Computer Science, Mechanical Engineering - auto-compelete from subjects-lookup</comment>
+      </column>
+    </property>
+    <property name="nameOfInstitutions" type="string">
+      <column length="100" name="nameOfInstitutions">
+        <comment>school, college, university</comment>
+      </column>
+    </property>
+    <property name="country" type="string">
+      <column length="45" name="country">
+        <comment>where qualification gained - auto-lookup or drop-down may be useful</comment>
+      </column>
+    </property>
+    <property name="yearObtained" type="date">
+      <column length="10" name="yearObtained">
+        <comment>year, may be months as well?</comment>
+      </column>
+    </property>
+    <property name="result" type="string">
+      <column length="20" name="result">
+        <comment>e.g. A grade, PASS, 2nd Class Hons, Distinction - where appropriate</comment>
+      </column>
+    </property>
+    <property name="thesesTitle" type="string">
+      <column length="200" name="thesesTitle">
+        <comment>when approapriate, e.g.final year BSc project title</comment>
+      </column>
+    </property>
+    <property name="verified" type="java.lang.Boolean">
+      <column name="verified">
+        <comment>if checked</comment>
+      </column>
+    </property>
+    <property name="howVerified" type="string">
+      <column length="45" name="howVerified">
+        <comment>who checked and how</comment>
+      </column>
+    </property>
+  </class>
+</hibernate-mapping>
